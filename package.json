@@ -1,0 +1,46 @@
+{
+  "name": "parser",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/www.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "npm run lint && tsc",
+    "start": "node dist/main.js",
+    "dev:watch": "nodemon .",
+    "dev": "tsc && npm run start",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Julianitow",
+  "license": "MIT",
+  "homepage": "https://github.com/julianitow",
+  "dependencies": {
+    "@types/koa-router": "^7.4.8",
+    "koa": "^2.15.3",
+    "koa-router": "^12.0.1",
+    "mongoose": "^8.3.2",
+    "node-cache": "^5.1.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@types/node": "^18.19.31",
+    "eslint": "^8.57.0",
+    "nodemon": "^3.1.0",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.7.0"
+  },
+  "bin": "dist/app.js",
+  "pkg": {
+    "scripts": "dist/**/*.js",
+    "targets": [
+      "node16-win-arm64",
+      "node16-macos-arm64",
+      "node16-win-x64"
+    ],
+    "outputPath": "bin"
+  }
+}
