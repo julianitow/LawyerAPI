@@ -2,6 +2,7 @@ import Router from "koa-router";
 import { IModule } from "../../definitions/interfaces";
 import Koa, { Context } from "koa";
 import cors from "@koa/cors"
+import koaBody from "koa-body";
 export class KoaModule implements IModule {
 
     readonly app: Koa;
@@ -31,6 +32,7 @@ export class KoaModule implements IModule {
         this.app.use(cors())
         this.app.use(this.headersMiddleware);
         this.app.use(this.loggerMiddleware);
+        this.app.use(koaBody());
         for (const r of this.routers) {
             this.app.use(r.routes());
         }

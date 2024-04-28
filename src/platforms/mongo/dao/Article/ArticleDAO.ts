@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { UpdateWriteOpResult } from "mongoose";
 import { Article, ArticleDocument } from "../../../../definitions/Models/Article";
 import { IArticle } from "../../../../definitions/interfaces";
 
@@ -10,12 +10,12 @@ export class ArticleDAO {
         this.model = Article;
     }
 
+    async update(article: IArticle): Promise<void> {
+        await this.model.updateOne({ _id: article.id }, article);
+    }
+
     async create(article: IArticle): Promise<ArticleDocument | void> {
-        try {
-            return await this.model.create(article);
-        } catch(err) {
-            console.error('ERR_CREAT', err);
-        }
+        return await this.model.create(article);
     }
 
     async fetchAll(sorted: boolean = true): Promise<ArticleDocument[]> {
@@ -28,12 +28,7 @@ export class ArticleDAO {
     }
 
     async fetchOne(id: string): Promise<IArticle | null> {
-        try {
-            return await this.model.findById(id);
-        } catch(err) {
-            console.error('ERR_FETCH', err);
-            return null;
-        }
+        return await this.model.findById(id);
     }
  }
 
