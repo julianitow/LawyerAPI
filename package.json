@@ -7,7 +7,7 @@
   "scripts": {
     "build": "npm run lint && tsc",
     "start": "node dist/main.js",
-    "dev:watch": "nodemon .",
+    "start:watch": "nodemon .",
     "dev": "tsc && npm run start",
     "lint": "eslint ."
   },
@@ -19,7 +19,7 @@
   "license": "MIT",
   "homepage": "https://github.com/julianitow",
   "dependencies": {
-    "@types/koa-router": "^7.4.8",
+    "@koa/cors": "^5.0.0",
     "koa": "^2.15.3",
     "koa-router": "^12.0.1",
     "mongoose": "^8.3.2",
@@ -27,6 +27,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.0.0",
+    "@types/koa__cors": "^5.0.0",
+    "@types/koa-router": "^7.4.8",
     "@types/node": "^18.19.31",
     "eslint": "^8.57.0",
     "nodemon": "^3.1.0",

@@ -1,7 +1,7 @@
 import Router from "koa-router";
 import { IModule } from "../../definitions/interfaces";
 import Koa, { Context } from "koa";
-
+import cors from "@koa/cors"
 export class KoaModule implements IModule {
 
     readonly app: Koa;
@@ -17,10 +17,19 @@ export class KoaModule implements IModule {
         const start = Date.now();
         await next();
         const ms = Date.now() - start;
-        console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
+        console.log(`${ctx.method} ${ctx.url} - ${ctx.status} - ${ms}ms`);
+    }
+
+    private async headersMiddleware(ctx: Context, next: Function): Promise<void> {
+        /**
+         * For later
+         */
+        await next();
     }
 
     default(): void {
+        this.app.use(cors())
+        this.app.use(this.headersMiddleware);
         this.app.use(this.loggerMiddleware);
         for (const r of this.routers) {
             this.app.use(r.routes());
