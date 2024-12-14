@@ -8,5 +8,5 @@ const app = new Lawyer();
 app.use(MyDotEnv);
 app.use(Logger);
 app.use(MongoDB);
-app.use(KoaModule, app.routers());
+app.use(KoaModule, app.routers(), app.unsecuredRoutes);
 app.run();

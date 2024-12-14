@@ -1,11 +1,11 @@
-import mongoose, { Document, Schema, ToObjectOptions, model } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 import { IArticle } from "../../interfaces";
 import { IFile } from "../../interfaces/Article/IFile";
 
 export type ArticleDocument = IArticle & Document;
 export type FileDocument = IFile & Document;
 
-function toPrettyObject(doc: any, obj: any, options: any): any {
+function toPrettyObject(doc: any, obj: any): any {
     if(obj._id) {
         obj.id = obj._id;
         delete obj._id;

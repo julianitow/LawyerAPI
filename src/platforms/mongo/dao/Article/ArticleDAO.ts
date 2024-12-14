@@ -1,4 +1,4 @@
-import mongoose, { UpdateWriteOpResult } from "mongoose";
+import mongoose from "mongoose";
 import { Article, ArticleDocument } from "../../../../definitions/Models/Article";
 import { IArticle } from "../../../../definitions/interfaces";
 
