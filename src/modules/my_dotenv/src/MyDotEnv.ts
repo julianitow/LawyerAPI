@@ -4,6 +4,10 @@ import path from 'path';
 
 export class MyDotEnv implements IModule {
 
+    constructor() {
+        this.setEnv('.env');
+    }
+
     default(envFile?: string | undefined): void {
         this.setEnv(envFile);
     }
