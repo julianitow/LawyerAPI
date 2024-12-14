@@ -13,6 +13,10 @@ export class Lawyer extends Application implements IApplication {
 
   constructor() {
     super();
+  }
+
+  protected beforeRun(): void {
+    super.beforeRun();
     const articleController = new ArticleController();
     const userController = new UserController();
     this.controllers.push(articleController);
