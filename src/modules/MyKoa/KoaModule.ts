@@ -32,7 +32,9 @@ export class KoaModule implements IModule {
         this.app.use(cors())
         this.app.use(this.headersMiddleware);
         this.app.use(this.loggerMiddleware);
-        this.app.use(koaBody());
+        this.app.use(koaBody({
+            jsonLimit: '50mb',
+        }));
         for (const r of this.routers) {
             this.app.use(r.routes());
         }

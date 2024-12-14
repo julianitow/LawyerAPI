@@ -1,7 +1,9 @@
 import mongoose, { Document, Schema, ToObjectOptions, model } from "mongoose";
 import { IArticle } from "../../interfaces";
+import { IFile } from "../../interfaces/Article/IFile";
 
 export type ArticleDocument = IArticle & Document;
+export type FileDocument = IFile & Document;
 
 function toPrettyObject(doc: any, obj: any, options: any): any {
     if(obj._id) {
@@ -10,6 +12,25 @@ function toPrettyObject(doc: any, obj: any, options: any): any {
     }
     return obj;
 }
+
+export const FileSchema = new Schema<FileDocument>({
+    name: {
+        type: String,
+        required: true,
+    },
+    content: {
+        type: Buffer,
+        required: true,
+    }
+}, {
+    timestamps: true,
+    toObject: {
+        transform: toPrettyObject
+    },
+    toJSON: {
+        transform: toPrettyObject
+    }
+});
 
 export const ArticleSchema = new Schema<ArticleDocument>({
     title: {
@@ -27,7 +48,8 @@ export const ArticleSchema = new Schema<ArticleDocument>({
     content: {
         type: String,
         required: true,
-    }
+    },
+    image: FileSchema,
 }, {
     timestamps: true,
     toObject: {

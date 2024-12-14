@@ -1,10 +1,8 @@
-import mongoose from "mongoose";
-import { IApplication, IArticle } from "../definitions/interfaces";
+import { IApplication } from "../definitions/interfaces";
 import { Application } from "./Application";
-import { Article } from "../definitions/Models/Article";
-import { ArticleDAO, _ArticleDAO } from "../platforms/mongo";
+import { _ArticleDAO } from "../platforms/mongo";
 import Router from "koa-router";
-import { ArticleController, BaseController } from "./controllers";
+import { ArticleController, BaseController, UserController } from "./controllers";
 
 export class Lawyer extends Application implements IApplication {
 
@@ -14,7 +12,9 @@ export class Lawyer extends Application implements IApplication {
     constructor() {
         super();
         const articleController = new ArticleController();
+        const userController = new UserController();
         this.controllers.push(articleController);
+        this.controllers.push(userController);
     }
 
     routers(): Router[] {

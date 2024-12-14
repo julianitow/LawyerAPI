@@ -17,6 +17,7 @@ export class ArticleController extends BaseController {
     async update(ctx: Context): Promise<void> {
         try {
             const article = ctx.request.body as IArticle;
+            article.image.content = Buffer.from(article.image.content); // convert uint8array to Buffer
             this.articleDAO.update(article);
             ctx.status = 204;
         } catch(err) {
