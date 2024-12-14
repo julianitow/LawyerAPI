@@ -7,7 +7,7 @@ import { IArticle } from "../../definitions/interfaces";
 export class ArticleController extends BaseController {
   readonly path = "/article";
   private readonly articleDAO: ArticleDAO;
-  unsecureRoutes?: string[] = [`${this.path}/all`];
+  unsecuredRoutes?: string[] = [`/all`];
 
   constructor() {
     super();

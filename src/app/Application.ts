@@ -1,6 +1,7 @@
 import { IModule } from "..";
 
 export class Application {
+  private initModules: IModule[] = []; // modules required before any others
   private modules: IModule[] = [];
 
   constructor() {}
@@ -13,10 +14,20 @@ export class Application {
     this.modules.push(m);
   }
 
+  public set<T extends IModule>(
+    module: new (...args: any[]) => T,
+    ...args: any[]
+  ): void {
+    const m = new module(...args);
+    this.initModules.push(m);
+    m.default();
+  }
+
+  public continue(): void {}
+
   protected beforeRun(): void {}
 
   protected run(): void {
-    this.beforeRun();
     for (const m of this.modules) {
       m.default();
     }

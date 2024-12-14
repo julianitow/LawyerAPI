@@ -15,8 +15,8 @@ export class Lawyer extends Application implements IApplication {
     super();
   }
 
-  protected beforeRun(): void {
-    super.beforeRun();
+  continue(): void {
+    super.continue();
     const articleController = new ArticleController();
     const userController = new UserController();
     this.controllers.push(articleController);
@@ -26,8 +26,10 @@ export class Lawyer extends Application implements IApplication {
   routers(): Router[] {
     const routers = [];
     for (const c of this.controllers) {
-      if (c.unsecureRoutes) {
-        this.unsecuredRoutes.push(...c.unsecureRoutes);
+      if (c.unsecuredRoutes) {
+        for (const route of c.unsecuredRoutes) {
+          this.unsecuredRoutes.push(`${c.path}${route}`);
+        }
       }
       routers.push(c.build());
     }
