@@ -38,6 +38,8 @@ export class KoaModule implements IModule {
   }
 
   default(): void {
+    this.app.use(this.loggerMiddleware);
+    this.app.use(cors());
     this.app.use((ctx, next) => {
       return next().catch((err) => {
         if (401 == err.status) {
@@ -59,9 +61,7 @@ export class KoaModule implements IModule {
       this.app.use(jwt({ secret: this.jwtSecretKey! }));
     }
     // this.app.use(jwt({ secret: this.jwtSecretKey! }));
-    this.app.use(cors());
     this.app.use(this.headersMiddleware);
-    this.app.use(this.loggerMiddleware);
     this.app.use(
       koaBody({
         jsonLimit: "50mb",
