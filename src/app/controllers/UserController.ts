@@ -22,11 +22,7 @@ export class UserController extends BaseController {
   }
 
   private generateToken(user: IUser): string {
-    const payload = {
-      time: Date(),
-      userId: 12,
-    };
-    return jwt.sign(payload, this.jwtSecretKey!);
+    return jwt.sign(user, this.jwtSecretKey!);
   }
 
   private checkPassword(user: IUser, enteredPassword: string): boolean {

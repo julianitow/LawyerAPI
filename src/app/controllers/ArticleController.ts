@@ -4,6 +4,8 @@ import { ArticleDAO, _ArticleDAO } from "../../platforms/mongo";
 import { BaseController } from "./BaseController";
 import { IArticle } from "../../definitions/interfaces";
 
+import * as fs from "fs";
+
 export class ArticleController extends BaseController {
   readonly path = "/article";
   private readonly articleDAO: ArticleDAO;
@@ -17,7 +19,9 @@ export class ArticleController extends BaseController {
   async update(ctx: Context): Promise<void> {
     try {
       const article = ctx.request.body as IArticle;
-      article.image.content = Buffer.from(article.image.content); // convert uint8array to Buffer
+      if (article.image !== undefined) {
+        article.image.content = Buffer.from(article.image.content); // convert uint8array to Buffer
+      }
       this.articleDAO.update(article);
       ctx.status = 204;
     } catch (err) {
@@ -29,6 +33,9 @@ export class ArticleController extends BaseController {
   async create(ctx: Context): Promise<void> {
     try {
       const article = ctx.request.body as IArticle;
+      if (article.image !== undefined) {
+        article.image.content = Buffer.from(article.image.content); // convert uint8array to Buffer
+      }
       ctx.body = await this.articleDAO.create(article);
       ctx.status = 201;
     } catch (err) {
