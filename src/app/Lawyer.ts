@@ -4,6 +4,7 @@ import Router from "koa-router";
 import {
   ArticleController,
   BaseController,
+  HomeController,
   UserController,
 } from "./controllers";
 
@@ -17,8 +18,10 @@ export class Lawyer extends Application implements IApplication {
 
   continue(): void {
     super.continue();
+    const abilitiesController = new HomeController();
     const articleController = new ArticleController();
     const userController = new UserController();
+    this.controllers.push(abilitiesController);
     this.controllers.push(articleController);
     this.controllers.push(userController);
   }

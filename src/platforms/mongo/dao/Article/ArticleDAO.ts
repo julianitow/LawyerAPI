@@ -20,6 +20,10 @@ export class ArticleDAO {
     return await this.model.create(article);
   }
 
+  async delete(articleId: string): Promise<void> {
+    await this.model.deleteOne({ _id: articleId });
+  }
+
   async fetchAll(sorted: boolean = true): Promise<ArticleDocument[]> {
     try {
       return sorted

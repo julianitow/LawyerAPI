@@ -44,6 +44,17 @@ export class ArticleController extends BaseController {
     }
   }
 
+  async delete(ctx: Context): Promise<void> {
+    const articleId = ctx.params.id as string;
+    try {
+      ctx.body = await this.articleDAO.delete(articleId);
+      ctx.status = 200;
+    } catch (err) {
+      console.error("ERR_CREAT", err);
+      ctx.status = 500;
+    }
+  }
+
   async fetchAll(ctx: Context): Promise<void> {
     try {
       ctx.body = await this.articleDAO.fetchAll();
@@ -59,6 +70,7 @@ export class ArticleController extends BaseController {
     router.get("/all", this.fetchAll.bind(this));
     router.post("/create", this.create.bind(this));
     router.patch("/edit", this.update.bind(this));
+    router.delete("/delete/:id", this.delete.bind(this));
     return router;
   }
 }

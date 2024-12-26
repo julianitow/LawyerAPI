@@ -1,4 +1,4 @@
-import { IFile } from "./IFile";
+import { IFile } from "../";
 
 export interface IArticle {
   id?: string;
