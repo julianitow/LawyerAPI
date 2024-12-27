@@ -4,6 +4,7 @@ import Router from "koa-router";
 import {
   ArticleController,
   BaseController,
+  GoogleAPIController,
   HomeController,
   UserController,
 } from "./controllers";
@@ -21,9 +22,11 @@ export class Lawyer extends Application implements IApplication {
     const abilitiesController = new HomeController();
     const articleController = new ArticleController();
     const userController = new UserController();
+    const googleApiController = new GoogleAPIController();
     this.controllers.push(abilitiesController);
     this.controllers.push(articleController);
     this.controllers.push(userController);
+    this.controllers.push(googleApiController);
   }
 
   routers(): Router[] {

@@ -23,6 +23,7 @@
     "@koa/bodyparser": "^5.1.1",
     "@koa/cors": "^5.0.0",
     "bcrypt": "^5.1.1",
+    "googleapis": "^144.0.0",
     "jsonwebtoken": "^9.0.2",
     "koa": "^2.15.3",
     "koa-body": "^6.0.1",
