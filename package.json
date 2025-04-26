@@ -5,12 +5,12 @@
   "main": "dist/www.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "npm run lint && tsc",
-    "build-dev": "tsc",
+    "build": "NODE_ENV=production npm run lint && tsc",
+    "build-dev": "NODE_ENV=development tsc",
     "start": "node dist/main.js",
     "start:watch": "nodemon .",
     "dev": "tsc && npm run start",
-    "lint": "eslint ."
+    "lint": "eslint --config eslint.config.mjs"
   },
   "repository": {
     "type": "git",

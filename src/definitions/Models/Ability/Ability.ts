@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
-import { IAbility, IFile } from "../../interfaces/";
+import { IAbility } from "../../interfaces/";
 import { Utils } from "../utils";
 import { FileSchema } from "../File";
 

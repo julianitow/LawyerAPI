@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IModule } from "../interfaces";
 
 export class Module<T extends IModule> {

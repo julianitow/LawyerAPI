@@ -7,6 +7,7 @@ export class MyDotEnv implements IModule {
     this.setEnv(envFile);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   default(_?: string): void {}
 
   setEnv(envFile?: string): void {

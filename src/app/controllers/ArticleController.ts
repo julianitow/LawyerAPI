@@ -4,8 +4,6 @@ import { ArticleDAO, _ArticleDAO } from "../../platforms/mongo";
 import { BaseController } from "./BaseController";
 import { IArticle } from "../../definitions/interfaces";
 
-import * as fs from "fs";
-
 export class ArticleController extends BaseController {
   readonly path = "/article";
   private readonly articleDAO: ArticleDAO;

@@ -1,4 +1,3 @@
-import path from "path";
 import { IModule } from "../../definitions/interfaces";
 import { google } from "googleapis";
 import { GoogleAuth } from "google-auth-library";
@@ -67,12 +66,8 @@ export class GoogleAPI implements IModule {
       },
     };
 
-    try {
-      const response = await webmasters.searchanalytics.query(request);
-      return response.data.rows;
-    } catch (err) {
-      throw err;
-    }
+    const response = await webmasters.searchanalytics.query(request);
+    return response.data.rows;
   }
 
   async default(): Promise<void> {

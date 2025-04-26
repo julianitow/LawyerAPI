@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import Router from "koa-router";
 import { IModule } from "../../definitions/interfaces";
 import Koa, { Context } from "koa";

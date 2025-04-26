@@ -60,7 +60,7 @@ export class UserController extends BaseController {
       await this.userDAO.create(user);
       ctx.status = 201;
     } catch (err) {
-      if ((err as any).code === 11000) {
+      if ((err as { code: number }).code === 11000) {
         ctx.body = "username already exists";
         ctx.status = 400;
       } else {
