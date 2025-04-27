@@ -13,7 +13,13 @@ export class HomeController extends BaseController {
   constructor() {
     super();
     this.subControllers = [ new PresentationController(), new AbilitiesController() ];
-    this.unsecuredRoutes = this.subControllers.map(sc => sc.unsecuredRoutes!.join());
+    this.unsecuredRoutes = 
+      this.subControllers.map(sc => {
+        if (sc.unsecuredRoutes !== undefined) {
+          return sc.unsecuredRoutes.join();
+        }
+        return '';
+      });
   }
 
   build(): Router {

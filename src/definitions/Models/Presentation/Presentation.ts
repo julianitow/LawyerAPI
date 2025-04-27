@@ -15,6 +15,10 @@ export const PresentationSchema = new Schema<PresentationDocument>(
       type: String,
       required: true,
     },
+    quote: {
+      type: String,
+      required: true,
+    },
     image: {
       type: FileSchema,
       required: false,

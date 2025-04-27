@@ -3,11 +3,10 @@ import { BaseController } from "./BaseController";
 import Router from "koa-router";
 import { _PresentationDAO } from "../../platforms/mongo/dao/Presentation/PresentationDAO";
 import { IPresentation } from "../../definitions/interfaces";
-import { PresentationDocument } from "../../definitions/Models/Presentation";
 
 export class PresentationController extends BaseController {
   readonly path = '/presentation';
-  unsecuredRoutes?: string[] = [`${this.path}`];
+  unsecuredRoutes?: string[] = [`${this.path}/get`];
 
   constructor() {
     super();
@@ -53,7 +52,7 @@ export class PresentationController extends BaseController {
   build(): Router {
     const router = super.build();
 
-    router.get('/', this.fetchPresentation.bind(this));
+    router.get('/get', this.fetchPresentation.bind(this));
     router.put('/edit', this.updateOrCreate.bind(this));
 
     return router;
