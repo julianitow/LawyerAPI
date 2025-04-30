@@ -13,6 +13,20 @@ export class AbilitiesController extends BaseController {
       super();
       this.abilityDAO = _AbilityDAO;
     }
+
+    async reorder(ctx: Context): Promise<void> {
+      try {
+        const abilities = ctx.request.body;
+        for (const i in abilities) {
+          abilities[i].indexOrder = i;
+          this.abilityDAO.update(abilities[i]);
+        }
+        ctx.status = 204;
+      } catch (err) {
+        console.error("ERR_UPDT", err);
+        ctx.status = 500;
+      }
+    }
   
     async updateAbility(ctx: Context): Promise<void> {
       try {
@@ -55,7 +69,7 @@ export class AbilitiesController extends BaseController {
   
     async fetchAllAbilities(ctx: Context): Promise<void> {
       try {
-        ctx.body = await this.abilityDAO.fetchAll();
+        ctx.body = await this.abilityDAO.fetchAll(true);
         ctx.status = 200;
       } catch (err) {
         console.error(err);
@@ -75,6 +89,10 @@ export class AbilitiesController extends BaseController {
       router.post(
         `/create`,
         this.createAbility.bind(this)
+      );
+      router.patch(
+        `/reorder`,
+        this.reorder.bind(this)
       );
       router.patch(
         `/edit`,

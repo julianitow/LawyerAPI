@@ -11,6 +11,10 @@ export const AbilitySchema = new Schema<AbilityDocument>(
       type: String,
       required: true,
     },
+    indexOrder: {
+      type: Number,
+      required: false,
+    },
     content: {
       type: String,
       required: true,

@@ -27,7 +27,7 @@ export class AbilityDAO {
   async fetchAll(sorted: boolean = true): Promise<AbilityDocument[]> {
     try {
       return sorted
-        ? await this.model.find().sort({ _id: -1 })
+        ? await this.model.find().sort({ indexOrder: -1 })
         : await this.model.find();
     } catch (err) {
       console.error("ERR_FETCH", err);
