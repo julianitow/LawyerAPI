@@ -1,20 +1,60 @@
-name: Build and Push Docker Image
-
+name: Build and Push to Docker Hub and GHCR
+env:
+  PROJECT_NAME: jager-api
 on:
   push:
     branches:
       - main
+      - 'fix.*'
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Compute Docker tags
+        id: vars
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DATE=$(date +'%Y%m%d')
+          BRANCH="${GITHUB_REF#refs/heads/}"
+          OWNER="${GITHUB_REPOSITORY_OWNER,,}"
+          REPO=$(basename "$GITHUB_REPOSITORY")
+
+          # Obtenir les tags existants du repo via l'API
+          TAGS=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
+            "https://api.github.com/repos/${OWNER}/${REPO}/tags?per_page=100" | jq -r '.[].name')
+
+          # Filtrer les tags de la bonne date
+          if [[ "$BRANCH" == "main" ]]; then
+            PATTERN="MAIN.${DATE}.BUILD."
+          else
+            FIX_NAME="${BRANCH#fix.}"
+            PATTERN="dev.${FIX_NAME}.${DATE}.BUILD."
+          fi
+
+          # Calcul du prochain build
+          BUILD_NUM=$(echo "$TAGS" | grep -E "${PATTERN}[0-9]+" | sed -E "s/.*${PATTERN}([0-9]+)/\1/" | sort -n | tail -1)
+          BUILD_NUM=$(( ${BUILD_NUM:-0} + 1 ))
+
+          # Définir les tags
+          if [[ "$BRANCH" == "main" ]]; then
+            TAGS="julianit0w/${PROJECT_NAME}:latest,julianit0w/${PROJECT_NAME}:MAIN.${DATE}.BUILD.${BUILD_NUM}"
+            GHCR_TAG="ghcr.io/${OWNER}/${REPO}:MAIN.${DATE}.BUILD.${BUILD_NUM}"
+          else
+            TAGS="julianit0w/${PROJECT_NAME}:dev.${FIX_NAME}.${DATE}.BUILD.${BUILD_NUM}"
+            GHCR_TAG="ghcr.io/${OWNER}/${REPO}:dev.${FIX_NAME}.${DATE}.BUILD.${BUILD_NUM}"
+          fi
+
+          echo "tags=$TAGS" >> $GITHUB_OUTPUT
+          echo "ghcr_tag=$GHCR_TAG" >> $GITHUB_OUTPUT
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -22,10 +62,18 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./Dockerfile
           push: true
-          tags: julianit0w/jager-api:latest
+          tags: |
+            ${{ steps.vars.outputs.tags }}
+            ${{ steps.vars.outputs.ghcr_tag }}
