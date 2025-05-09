@@ -16,10 +16,10 @@ export class HomeController extends BaseController {
     this.unsecuredRoutes = 
       this.subControllers.map(sc => {
         if (sc.unsecuredRoutes !== undefined) {
-          return sc.unsecuredRoutes.join();
+          return sc.unsecuredRoutes;
         }
         return '';
-      });
+      }).flat();
   }
 
   build(): Router {

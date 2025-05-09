@@ -4,3 +4,4 @@ export * from "./MyKoa";
 export * from "./logger";
 export * from "./my_dotenv";
 export * from "./GoogleAPI";
+export * from './Cache';
