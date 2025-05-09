@@ -47,10 +47,10 @@ jobs:
           # Définir les tags
           if [[ "$BRANCH" == "main" ]]; then
             TAGS="julianit0w/${PROJECT_NAME}:latest,julianit0w/${PROJECT_NAME}:MAIN.${DATE}.BUILD.${BUILD_NUM}"
-            GHCR_TAG="ghcr.io/${OWNER}/${REPO}:MAIN.${DATE}.BUILD.${BUILD_NUM}"
+            GHCR_TAG="ghcr.io/${OWNER}/${PROJECT_NAME}:MAIN.${DATE}.BUILD.${BUILD_NUM}"
           else
             TAGS="julianit0w/${PROJECT_NAME}:dev.${FIX_NAME}.${DATE}.BUILD.${BUILD_NUM}"
-            GHCR_TAG="ghcr.io/${OWNER}/${REPO}:dev.${FIX_NAME}.${DATE}.BUILD.${BUILD_NUM}"
+            GHCR_TAG="ghcr.io/${OWNER}/${PROJECT_NAME}:dev.${FIX_NAME}.${DATE}.BUILD.${BUILD_NUM}"
           fi
 
           echo "tags=$TAGS" >> $GITHUB_OUTPUT
