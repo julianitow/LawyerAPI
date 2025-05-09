@@ -3,11 +3,15 @@ import { Context } from "vm";
 import { IAbility } from "../../definitions/interfaces";
 import { AbilityDAO, _AbilityDAO } from "../../platforms/mongo";
 import { BaseController } from "./BaseController";
+import { Application } from "..";
+import * as Utils from "../../platforms/utils";
+import sharp from "sharp";
+import NodeCache from "node-cache";
 
 export class AbilitiesController extends BaseController {
     readonly path = "/abilities";
     private readonly abilityDAO: AbilityDAO;
-    unsecuredRoutes = [`${this.path}/all`]
+    unsecuredRoutes = [`${this.path}/all`, `${this.path}/image`]
   
     constructor() {
       super();
@@ -69,9 +73,44 @@ export class AbilitiesController extends BaseController {
   
     async fetchAllAbilities(ctx: Context): Promise<void> {
       try {
-        ctx.body = await this.abilityDAO.fetchAll(true);
+        const abilities = await this.abilityDAO.fetchAll(true);
+        const cache = Application.sharedContext.cache as NodeCache;
+        for (const ability of abilities) {
+          let buffer = undefined;
+          const image = ability.image;
+          const cacheKey = `img-${image.id}`;
+          if (cache.has(cacheKey)) {
+            buffer = cache.get(cacheKey) as Buffer | Uint8Array;
+            console.debug(`getting image: ${image.id} from cache`);
+            if (Buffer.isBuffer(buffer) === false) {
+              console.error('ERR: BUFFER IS NOT BUFFER: ', buffer);
+              buffer = undefined;
+            }
+          }
+          if (buffer === undefined) {
+            buffer = await Utils.saveImageToContext(image, 10);
+          }
+          ability.image.content = buffer;
+        }
+        ctx.body = abilities;
         ctx.status = 200;
       } catch (err) {
+        console.error(err);
+        ctx.status = 500;
+      }
+    }
+
+    async fetchImage(ctx: Context): Promise<void> {
+      const abilityId = ctx.query.id as string;
+      try {
+        const ability = await this.abilityDAO.fetchOne(abilityId);
+        if (ability !== null) {
+          ctx.body = ability.image.content;
+          ctx.status = 200;
+        } else {
+          ctx.status = 404;
+        }
+      } catch(err) {
         console.error(err);
         ctx.status = 500;
       }
@@ -85,6 +124,10 @@ export class AbilitiesController extends BaseController {
       router.get(
         `/all`,
         this.fetchAllAbilities.bind(this)
+      );
+      router.get(
+        `/image`,
+        this.fetchImage.bind(this)
       );
       router.post(
         `/create`,
