@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Compiler l'application TypeScript
-RUN npm run build-dev
+RUN npm run build
 
 # Exposer le port sur lequel ton API sera accessible
 EXPOSE 3000
