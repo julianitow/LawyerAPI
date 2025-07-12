@@ -9,7 +9,7 @@
     "build-dev": "NODE_ENV=development tsc",
     "start": "node dist/main.js",
     "start:watch": "DEBUG=true nodemon .",
-    "dev": "tsc && npm run start",
+    "dev": "npm run build-dev && npm run start",
     "lint": "eslint --config eslint.config.mjs"
   },
   "repository": {

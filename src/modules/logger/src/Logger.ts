@@ -71,7 +71,10 @@ export class Logger implements IModule {
   }
 
   private DEBUG(...out: []): void {
-    if (process.env.DEBUG) {
+    if (
+      process.env.NODE_ENV === 'development' ||
+      process.env.DEBUG 
+    ) {
       Logger.print(LEVEL.DEBUG, out);
     }
   }
