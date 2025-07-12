@@ -1,15 +1,17 @@
-import Router from "koa-router";
-import { BaseController } from "./BaseController";
-import { IUser } from "../../definitions/interfaces/User";
-import { Context } from "koa";
-import * as jwt from "jsonwebtoken";
-import { _UserDAO, UserDAO } from "../../platforms/mongo";
-import * as bcrypt from "bcrypt";
+import Router from 'koa-router';
+import { BaseController } from './BaseController';
+import { IUser } from '../../definitions/interfaces/User';
+import { Context } from 'koa';
+import * as jwt from 'jsonwebtoken';
+import { _UserDAO, UserDAO } from '../../platforms/mongo';
+import * as bcrypt from 'bcrypt';
+import { Application } from '../Application';
+import NodeCache from 'node-cache';
 
 export class UserController extends BaseController {
-  readonly path: string = "/user";
+  readonly path: string = '/user';
 
-  unsecuredRoutes?: string[] = [`/login`, "/register"];
+  unsecuredRoutes?: string[] = ['/login', '/register'];
 
   private readonly jwtSecretKey = process.env.JWT_SECRET_KEY;
   private readonly userDAO: UserDAO = _UserDAO;
@@ -17,7 +19,7 @@ export class UserController extends BaseController {
   constructor() {
     super();
     if (this.jwtSecretKey === undefined) {
-      throw new Error("JWT_SECRET_KEY undefined");
+      throw new Error('JWT_SECRET_KEY undefined');
     }
   }
 
@@ -61,7 +63,7 @@ export class UserController extends BaseController {
       ctx.status = 201;
     } catch (err) {
       if ((err as { code: number }).code === 11000) {
-        ctx.body = "username already exists";
+        ctx.body = 'username already exists';
         ctx.status = 400;
       } else {
         ctx.status = 500;
@@ -69,10 +71,21 @@ export class UserController extends BaseController {
     }
   }
 
+  async flushCache(ctx: Context): Promise<void> {
+    try {
+      (Application.sharedContext.cache as NodeCache).flushAll();
+      ctx.status = 200;
+    } catch (err) {
+      console.error(err);
+      ctx.status = 500;
+    }
+  }
+
   build(): Router {
     const router = super.build();
-    router.post("/login", this.login.bind(this));
-    router.post("/register", this.create.bind(this));
+    router.post('/login', this.login.bind(this));
+    router.post('/register', this.create.bind(this));
+    router.delete('/flush-cache', this.flushCache.bind(this));
     return router;
   }
 }

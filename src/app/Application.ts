@@ -2,6 +2,7 @@
 import { IModule } from "..";
 
 export class Application {
+  static sharedContext: any;
   private initModules: IModule[] = []; // modules required before any others
   private modules: IModule[] = [];
 

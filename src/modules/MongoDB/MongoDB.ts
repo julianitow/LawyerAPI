@@ -28,8 +28,10 @@ export class MongoDB implements IModule {
   }
 
   private async connect(): Promise<void> {
-    //const url = `mongodb://${this.MONGO_USER}:${this.MONGO_PASSWD}@${this.MONGO_HOST}:${this.MONGO_PORT}/${this.MONGO_DB}?authMechanism=DEFAULT&directConnection=true`;
-    const url = `mongodb://${this.MONGO_USER}:${this.MONGO_PASSWD}@${this.MONGO_HOST}:${this.MONGO_PORT}/${this.MONGO_DB}?authSource=admin&directConnection=true`;
+    let url = `mongodb://${this.MONGO_USER}:${this.MONGO_PASSWD}@${this.MONGO_HOST}:${this.MONGO_PORT}/${this.MONGO_DB}?authSource=admin&directConnection=true`;
+    if (process.env.NODE_ENV?.toLocaleLowerCase() !== 'production') {
+      url = `mongodb://${this.MONGO_HOST}:${this.MONGO_PORT}/${this.MONGO_DB}?authMechanism=DEFAULT&directConnection=true`;
+    }
     try {
       await connect(url);
       console.success("MONGO CONNECTED TO", this.MONGO_HOST, this.MONGO_PORT);
