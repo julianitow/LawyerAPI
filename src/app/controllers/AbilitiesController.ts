@@ -93,7 +93,7 @@ export class AbilitiesController extends BaseController {
           ability.image.content = buffer;
         }
         
-        ctx.body = abilities.sort((a, b) => (a.indexOrder ?? 0) - (b.indexOrder ?? 0));
+        ctx.body = abilities.sort((a, b) => (b.indexOrder ?? 0) - (a.indexOrder ?? 0));
         ctx.status = 200;
       } catch (err) {
         console.error(err);
