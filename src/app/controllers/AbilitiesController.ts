@@ -5,7 +5,6 @@ import { AbilityDAO, _AbilityDAO } from "../../platforms/mongo";
 import { BaseController } from "./BaseController";
 import { Application } from "..";
 import * as Utils from "../../platforms/utils";
-import sharp from "sharp";
 import NodeCache from "node-cache";
 
 export class AbilitiesController extends BaseController {
