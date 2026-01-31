@@ -1,8 +1,8 @@
 import { Context } from "vm";
-import { BaseController } from "./BaseController";
 import Router from "koa-router";
 import { _PresentationDAO } from "../../platforms/mongo/dao/Presentation/PresentationDAO";
 import { IPresentation } from "../../definitions/interfaces";
+import { BaseController } from "s1mpl3-api-l1b";
 
 export class PresentationController extends BaseController {
   readonly path = '/presentation';

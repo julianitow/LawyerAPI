@@ -1,6 +1,5 @@
 import NodeCache from "node-cache";
-import { Application } from "../../app";
-import { IModule } from "../../definitions/interfaces";
+import { Application, IModule } from "s1mpl3-api-l1b";
 
 export type CacheSpecifier = NodeCache.Options;
 

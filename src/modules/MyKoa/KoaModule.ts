@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import Router from "koa-router";
-import { IModule } from "../../definitions/interfaces";
 import Koa, { Context } from "koa";
 import cors from "@koa/cors";
 import koaBody from "koa-body";
 import jwt from "koa-jwt";
+import { IModule } from "s1mpl3-api-l1b";
 
 export class KoaModule implements IModule {
   readonly app: Koa;

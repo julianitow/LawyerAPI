@@ -1,5 +1,5 @@
-import { IModule } from "../../definitions/interfaces";
 import { connect } from "mongoose";
+import { IModule } from "s1mpl3-api-l1b";
 
 export class MongoDB implements IModule {
   private MONGO_HOST: string = "";

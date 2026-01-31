@@ -2,10 +2,9 @@ import Router from "koa-router";
 import { Context } from "vm";
 import { IAbility } from "../../definitions/interfaces";
 import { AbilityDAO, _AbilityDAO } from "../../platforms/mongo";
-import { BaseController } from "./BaseController";
-import { Application } from "..";
 import * as Utils from "../../platforms/utils";
 import NodeCache from "node-cache";
+import { Application, BaseController } from "s1mpl3-api-l1b";
 
 export class AbilitiesController extends BaseController {
     readonly path = "/abilities";

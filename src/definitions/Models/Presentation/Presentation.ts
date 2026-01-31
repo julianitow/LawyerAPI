@@ -1,7 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
-import { FileSchema } from "../File";
-import { Utils } from "../utils";
 import { IPresentation } from "../../interfaces/Presentation";
+import { FileSchema, Utils } from "s1mpl3-api-l1b";
 
 export type PresentationDocument = IPresentation & Document;
 

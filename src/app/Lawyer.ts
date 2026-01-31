@@ -1,9 +1,7 @@
-import { IApplication } from "../definitions/interfaces";
-import { Application } from "./Application";
+import { Application, BaseController, IApplication } from "s1mpl3-api-l1b";
 import Router from "koa-router";
 import {
   ArticleController,
-  BaseController,
   GoogleAPIController,
   HomeController,
   UserController,

@@ -1,5 +1,4 @@
-import { IFile } from "..";
-import { OrderedObject } from "../OrderedObject";
+import { IFile, OrderedObject } from "s1mpl3-api-l1b";
 
 export interface IAbility extends OrderedObject {
   id?: string;

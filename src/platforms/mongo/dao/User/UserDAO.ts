@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-import { User, UserDocument } from "../../../../definitions/Models/User";
-import { IUser } from "../../../../definitions/interfaces/User";
+import { IUser, User, UserDocument } from "s1mpl3-api-l1b";
 
 export class UserDAO {
   private readonly model: mongoose.Model<UserDocument>;

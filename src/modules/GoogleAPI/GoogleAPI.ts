@@ -1,7 +1,6 @@
-import { IModule } from "../../definitions/interfaces";
 import { google } from "googleapis";
 import { GoogleAuth } from "google-auth-library";
-import { IGoogleStatRow } from "../../definitions/interfaces/GoogleStat/IGoogleStatRow";
+import { IGoogleStatRow, IModule } from "s1mpl3-api-l1b";
 
 export class GoogleAPI implements IModule {
   private readonly credentialsPath = process.env.GOOGLE_CREDENTIALS;

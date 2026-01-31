@@ -1,8 +1,7 @@
 import sharp from "sharp";
 import NodeCache from "node-cache";
+import { Application, IFile } from "s1mpl3-api-l1b";
 
-import { IFile } from "../../definitions/interfaces";
-import { Application } from "../../app";
 
 export async function saveImageToContext(image: IFile, quality: number): Promise<Buffer | Uint8Array> {
   console.debug('Compressing and saving image:', image.id, 'quality:', quality);

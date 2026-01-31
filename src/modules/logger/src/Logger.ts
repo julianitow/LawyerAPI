@@ -1,4 +1,4 @@
-import { IModule } from "../../../definitions/interfaces";
+import { IModule } from "s1mpl3-api-l1b";
 import util from "util";
 
 declare global {
