@@ -1,7 +1,7 @@
 import Router from "koa-router";
-import { BaseController } from "./BaseController";
 import { GoogleAPI } from "../../modules";
 import { Context } from "koa";
+import { BaseController } from "s1mpl3-api-l1b";
 
 export class GoogleAPIController extends BaseController {
   readonly path: string = "/google";

@@ -1,7 +1,7 @@
 import Router from "koa-router";
-import { BaseController } from "./BaseController";
 import { AbilitiesController } from "./AbilitiesController";
 import { PresentationController } from "./PresentationController";
+import { BaseController } from "s1mpl3-api-l1b";
 
 export class HomeController extends BaseController {
   readonly path = "/home";

@@ -1,11 +1,10 @@
 import { Context } from 'koa';
 import Router from 'koa-router';
 import { ArticleDAO, _ArticleDAO } from '../../platforms/mongo';
-import { BaseController } from './BaseController';
 import { IArticle } from '../../definitions/interfaces';
-import { Application } from '../Application';
 import NodeCache from 'node-cache';
 import * as Utils from "../../platforms/utils";
+import { Application, BaseController } from 's1mpl3-api-l1b';
 
 export class ArticleController extends BaseController {
   readonly path = '/article';
@@ -19,7 +18,7 @@ export class ArticleController extends BaseController {
 
   async update(ctx: Context): Promise<void> {
     try {
-      const article = ctx.request.body as IArticle;
+      const article = (ctx.request as any).body as IArticle;
       if (article.image !== undefined) {
         article.image.content = Buffer.from(article.image.content); // convert uint8array to Buffer
       }
@@ -33,7 +32,7 @@ export class ArticleController extends BaseController {
 
   async create(ctx: Context): Promise<void> {
     try {
-      const article = ctx.request.body as IArticle;
+      const article = (ctx.request as any).body as IArticle;
       if (article.image !== undefined) {
         article.image.content = Buffer.from(article.image.content); // convert uint8array to Buffer
       }

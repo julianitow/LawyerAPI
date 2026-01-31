@@ -1,12 +1,10 @@
 import Router from 'koa-router';
-import { BaseController } from './BaseController';
-import { IUser } from '../../definitions/interfaces/User';
 import { Context } from 'koa';
 import * as jwt from 'jsonwebtoken';
 import { _UserDAO, UserDAO } from '../../platforms/mongo';
 import * as bcrypt from 'bcrypt';
-import { Application } from '../Application';
 import NodeCache from 'node-cache';
+import { Application, BaseController, IUser } from 's1mpl3-api-l1b';
 
 export class UserController extends BaseController {
   readonly path: string = '/user';
@@ -32,7 +30,7 @@ export class UserController extends BaseController {
   }
 
   async login(ctx: Context): Promise<void> {
-    const user = ctx.request.body as IUser;
+    const user = (ctx.request as any).body as IUser;
     try {
       const dbUser = await this.userDAO.fetchOne(user.username);
       if (dbUser === null) {
@@ -55,7 +53,7 @@ export class UserController extends BaseController {
   }
 
   async create(ctx: Context): Promise<void> {
-    const user = ctx.request.body as IUser;
+    const user = (ctx.request as any).body as IUser;
     try {
       const salt = bcrypt.genSaltSync(10);
       user.password = bcrypt.hashSync(user.password, salt);

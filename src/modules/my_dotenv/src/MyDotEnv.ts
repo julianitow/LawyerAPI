@@ -1,6 +1,6 @@
 import * as fs from "fs";
-import { IModule } from "../../../definitions/interfaces/Module";
 import path from "path";
+import { IModule } from "s1mpl3-api-l1b";
 
 export class MyDotEnv implements IModule {
   constructor(envFile?: string) {

@@ -31,6 +31,7 @@
     "koa-router": "^12.0.1",
     "mongoose": "^8.3.2",
     "node-cache": "^5.1.2",
+    "s1mpl3-api-l1b": "0.0.5",
     "sharp": "^0.34.1"
   },
   "devDependencies": {

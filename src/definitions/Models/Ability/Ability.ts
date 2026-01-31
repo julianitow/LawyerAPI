@@ -1,7 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
 import { IAbility } from "../../interfaces";
-import { Utils } from "../utils";
-import { FileSchema } from "../File";
+import { FileSchema, Utils } from "s1mpl3-api-l1b";
 
 export type AbilityDocument = IAbility & Document;
 

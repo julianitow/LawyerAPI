@@ -1,7 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
 import { IArticle } from "../../interfaces";
-import { FileSchema } from "../File";
-import { Utils } from "../utils";
+import { FileSchema, Utils } from "s1mpl3-api-l1b";
 
 export type ArticleDocument = IArticle & Document;
 
